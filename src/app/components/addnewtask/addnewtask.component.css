@@ -1,0 +1,72 @@
+:host {
+    display: contents;
+}
+
+.boxs {
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    /* margin: 0 15px 0 15px; */
+    margin: 0;
+    flex: 0 0 325px;
+    /* Fixed width for the first and third container */
+}
+
+/* ######################## */
+
+.task-text {
+    color: #444444;
+    font-weight: 600s;
+}
+
+.form-control {
+    box-shadow: none !important;
+    height: 2rem;
+}
+
+.fixed-textarea {
+    width: 300px;
+    /* Set desired width */
+    height: 150px;
+    /* Set desired height */
+    resize: none;
+    /* Disable resizing */
+}
+
+label {
+    display: inline-block;
+    width: 75px;
+    /* Adjust width as needed */
+}
+
+.badge {
+    background-color: #d1eaed;
+    color: #4f5151;
+    padding: auto;
+    margin-right: 4px;
+}
+
+.tag-badge {
+    padding: 10px;
+}
+
+.btn-bottom {
+    height: 85%;
+}
+
+.btn-close {
+    margin-top: 4px;
+    box-shadow: none !important;
+}
+
+/* ######################## */
+
+@media (max-width: 768px) {
+
+    .boxs {
+        flex-grow: 1;
+        /* Allow the boxes to grow and fill available space */
+        margin-bottom: 20px;
+        /* Add space between boxes on smaller screens */
+    }
+}

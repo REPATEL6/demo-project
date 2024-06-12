@@ -1,0 +1,56 @@
+:host {
+    display: contents;
+}
+
+.boxs {
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 15px 0 15px;
+    flex-grow: 1;
+    /* Allow the second container to fill the remaining space */
+}
+
+/* ############### */
+
+.fa-solid {
+    font-size: 14px;
+}
+
+.font-bold {
+    font-weight: 630;
+    color: #4f5151;
+}
+
+.a-new-list {
+    text-decoration: none;
+    color: #212529;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.badge {
+    background-color: #d1eaed;
+    color: #4f5151;
+    padding: auto;
+}
+
+label {
+    display: inline-block;
+    width: 75px;
+    /* Adjust width as needed */
+}
+
+/* ############### */
+
+@media (max-width: 768px) {
+
+    .boxs {
+        flex-grow: 1;
+        /* Allow the boxes to grow and fill available space */
+        margin-bottom: 20px;
+        /* Add space between boxes on smaller screens */
+    }
+}

@@ -1,0 +1,128 @@
+<div class="boxs">
+    <!-- <h2>Container 3</h2>
+    <p>This is the 3rd container.</p> -->
+
+    <div class="container">
+        <h1 class="mb-5"><b>Upcoming</b><span class="badge rounded ms-5 p-2">14</span></h1>
+        <div class="row">
+            <h3><b>Today</b></h3>
+            <div class="col-sm-12">
+                <ul class="list-group">
+                    <a routerLink="addnewtask" routerLinkActive="active" (click)="btnON()"
+                        class="a-new-list border">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <div>
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="font-bold ms-2">Add New Task</div>
+                            </div>
+                        </li>
+                    </a>
+                    <a href="/" class="a-new-list border-bottom">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Task 1
+                                </label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list border-bottom">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Task 2
+                                </label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">Task 3</label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-6 p-2">
+                <h3><b>Tomorrow</b></h3>
+                <ul class="list-group">
+                    <a href="" class="a-new-list border rounded">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <div>
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="font-bold ms-2">Add New Task</div>
+                            </div>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list border-bottom">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">Task 1</label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">Task 2</label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="col-sm-6 p-2">
+                <h4><b>This Week</b></h4>
+                <ul class="list-group">
+                    <a href="" class="a-new-list border rounded">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <div>
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="font-bold ms-2">Add New Task</div>
+                            </div>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list border-bottom">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Task 1
+                                </label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                    <a href="" class="a-new-list">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto d-flex">
+                                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">Task 2</label>
+                            </div>
+                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet *ngIf="dataService.getBtnToggle()"></router-outlet>

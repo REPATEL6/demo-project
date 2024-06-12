@@ -1,0 +1,48 @@
+<div class="boxs p-4">
+    <!-- <h2>Container 3</h2>
+    <p>This is the 3rd container.</p> -->
+    <div class="">
+        <span class="d-flex justify-content-between">
+            <h4 class="task-text">Tasks:</h4>
+            <button type="button" (click)="btnOFF()" class="btn-close" aria-label="Close"></button>
+        </span>
+        <ul class="list-group btn-bottom p-0">
+
+            <div class="input-taskName">
+                <input type="text" placeholder="New Task" class="form-control">
+            </div>
+            <div class="input-desc mt-4">
+                <textarea class="fixed-textarea form-control" placeholder="Task Description"></textarea>
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm-10">
+                    <label for="dropdown">List:</label>
+                    <select id="dropdown" name="dropdown">
+                        <option value="">- Select -</option>
+                        <option value="personal">Personal</option>
+                        <option value="work">Work</option>
+                    </select>
+                </div>
+            </div>
+            <div class="my-3 row">
+                <div class="col-sm-10">
+                    <label>Due Date:</label>
+                    <input type="date" id="datepicker" name="datepicker" min="2024-06-05">
+                </div>
+            </div>
+            <div class="mb-3 row me-0">
+                <div class="col-sm-12">
+                    <label>Tags:</label>
+                    <span class="badge tag-badge">Tag 1</span>
+                    <span class="badge tag-badge">Tag 1</span>
+                    <span class="badge bg-secondary-subtle tag-badge"><i class="fa-solid fa-plus"></i> Add Tag</span>
+                </div>
+            </div>
+
+        </ul>
+    </div>
+    <div class="text-center btn-save-del">
+        <button type="button" class="btn btn-outline-secondary">Delete Task</button>
+        <button type="button" class="btn btn-outline-warning">Save Changes</button>
+    </div>
+</div>

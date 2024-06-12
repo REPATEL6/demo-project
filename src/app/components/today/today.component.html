@@ -1,0 +1,50 @@
+<div class="boxs">
+    <!-- <h2>Container 2</h2>
+    <p>This is the 2nd container.</p> -->
+    <h1 class="mb-5"><b>Today</b><span class="badge border rounded ms-5 p-2">14</span></h1>
+    <ul class="list-group">
+        <a routerLink="addnewtask" routerLinkActive="active" (click)="btnON()" class="a-new-list border rounded">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto d-flex">
+                    <div>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="font-bold ms-2">Add New Task</div>
+                </div>
+            </li>
+        </a>
+        <a href="/" class="a-new-list border-bottom rounded">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto d-flex">
+                    <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Task 1
+                    </label>
+                </div>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+            </li>
+        </a>
+        <a href="" class="a-new-list border-bottom rounded">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto d-flex">
+                    <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Task 2
+                    </label>
+                </div>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+            </li>
+        </a>
+        <a href="" class="a-new-list rounded">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto d-flex">
+                    <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
+                    <label class="form-check-label" for="flexCheckDefault">Task 3</label>
+                </div>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+            </li>
+        </a>
+    </ul>
+
+</div>
+<router-outlet *ngIf="dataService.getBtnToggle()"></router-outlet>
