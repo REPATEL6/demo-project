@@ -1,0 +1,39 @@
+.container-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+}
+
+.img-fluid {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-manager-content {
+    flex: 2;
+}
+
+/* .login-form {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+} */
+
+@media (max-width: 768px) {
+
+    .image-container,
+    .task-manager-content {
+        flex: 1;
+        padding: 15px;
+    }
+}

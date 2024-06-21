@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    margin: 10px !important;
+    margin: 10px 10px auto 10px !important;
 }
 
 /* .active:checked {

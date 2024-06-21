@@ -1,0 +1,27 @@
+<!-- <div class="col-md-7 task-manager-content m-0 p-0">
+    <div class="container-center">-->
+<form class="login-form">
+   <h4 class="text-center text-danger" *ngIf="showhead">Invalid credentials!</h4>
+   <h2>Sign in</h2>
+   <div class="form-group mt-3">
+      <label for="exampleInputEmail">Email address</label>
+      <input type="email" class="form-control mt-1" id="exampleInputEmail" aria-describedby="emailHelp"
+         placeholder="Enter email" #userEmail>
+   </div>
+   <div class="form-group mt-2">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control mt-1" id="exampleInputPassword1" placeholder="Enter Password"
+         #userPassword>
+   </div>
+   <div class="mt-3">
+      <button type="reset" (click)="signin(userEmail.value, userPassword.value)" class="btn btn-primary">Sign
+         in</button>
+   </div>
+   <div class="separator mt-3">or</div>
+   <div class="text-center">
+      <a routerLink="/signup" role="button" routerLinkActive="active" class="signup-link">Don't have an account?
+         Sign-up</a>
+   </div>
+</form>
+<!-- </div>
+</div> -->

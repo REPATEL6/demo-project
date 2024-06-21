@@ -6,6 +6,10 @@
     flex: 0 0 325px;
 }
 
+.text-list {
+    margin-bottom: 0;
+}
+
 .list-group-item {
     border: none;
     background-color: #f0f0f0;
@@ -18,12 +22,16 @@
 
 .font-bold {
     font-weight: 630;
-    color: #4f5151;
+    color: black;
+}
+
+.fa-solid {
+    color: #7c7c7c;
 }
 
 hr {
     width: 90%;
-    margin: 1.5rem auto 1.2rem auto;
+    margin: 1rem auto 1rem auto;
 }
 
 .badge {

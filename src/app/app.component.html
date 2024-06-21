@@ -1,6 +1,9 @@
 <div class="container-main">
-  <app-taskbar class="d-contents"></app-taskbar>
-  <router-outlet style="display: contents;"></router-outlet>
+    @if(isUserAuthenticated()){
+        <app-taskbar class="d-contents"></app-taskbar>
+    }@else {
+        <app-signin class="d-contents"></app-signin>
+    }
   <!-- <app-addnewtask class="d-contents"></app-addnewtask> -->
   <!-- <app-upcoming class="d-contents"></app-upcoming> -->
   <!-- <app-today class="d-contents"></app-today> -->

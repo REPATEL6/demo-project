@@ -15,11 +15,12 @@
 
 .fa-solid {
     font-size: 14px;
+    color: #7c7c7c;
 }
 
 .font-bold {
     font-weight: 630;
-    color: #4f5151;
+    color: black;
 }
 
 .a-new-list {
@@ -40,7 +41,6 @@
 label {
     display: inline-block;
     width: 75px;
-    /* Adjust width as needed */
 }
 
 /* ############### */
