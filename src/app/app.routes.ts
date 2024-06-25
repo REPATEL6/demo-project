@@ -21,11 +21,11 @@ export const routes: Routes = [
   {
     path: 'upcoming', component: UpcomingComponent,
     children: [
-      { path: 'addnewtask', component: AddnewtaskComponent }
+      { path: '', component: AddnewtaskComponent }
     ]
   },
 
   { path: '', component: TaskbarComponent, canActivate:[authGuard] },
-  { path: '**', component: TaskbarComponent }
+  // { path: '**', component: TaskbarComponent }
 
 ];

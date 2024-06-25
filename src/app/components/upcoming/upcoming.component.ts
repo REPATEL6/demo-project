@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import { CallApiService } from '../../services/call-api.service';
 
 @Component({
   selector: 'app-upcoming',
@@ -12,10 +12,10 @@ import { DataService } from '../../services/data.service';
 })
 export class UpcomingComponent {
 
-  constructor(public dataService : DataService) {}
+  constructor(public apiService : CallApiService) {}
 
   btnON() {
-    this.dataService.setBtnToogle(true);
+    this.apiService.setBtnToogle(true);
   }
 
 }

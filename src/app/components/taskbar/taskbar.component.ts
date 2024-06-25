@@ -11,7 +11,7 @@ import { DataService } from '../../services/data.service';
 })
 export class TaskbarComponent implements OnInit {
 
-  constructor(private dataService : DataService, private route:Router) {}
+  constructor(private route:Router) {}
 
   ngOnInit(): void {
     // this.dataService.getData();

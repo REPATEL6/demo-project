@@ -24,6 +24,7 @@
 }
 
 .a-new-list {
+    cursor: pointer;
     text-decoration: none;
     color: #212529;
 }

@@ -12,7 +12,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 export class SigninComponent implements OnInit {
 
   
-  constructor(private dataService : DataService, private route:Router) {}
+  constructor(private route:Router) {}
   
   ngOnInit() {
     console.log("signin page")

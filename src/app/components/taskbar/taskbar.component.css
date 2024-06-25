@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     flex: 0 0 325px;
+    height: 95vh;
 }
 
 .text-list {

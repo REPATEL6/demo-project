@@ -13,28 +13,26 @@
             </div>
          </li>
       </a>
-      <a href="" class="a-new-list border-bottom rounded">
-         <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto d-flex flex-wrap">
-               <!-- <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
-               <label class="form-check-label" for="flexCheckDefault">
-                  Task 1
-               </label> -->
-               <div class="d-flex">
-                  <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
-                  <label class="form-check-label w-100" for="flexCheckDefault">
-                     <div class="font-bold">Task tasktasktasktasktasktasktasktask</div>
-                  </label>
+      <div *ngFor="let data of response" class="border-bottom rounded">
+         <a class="a-new-list border-bottom rounded" (click)="getData(data)">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+               <div class="ms-2 me-auto d-flex flex-wrap">
+                  <div class="d-flex">
+                     <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
+                     <label class="form-check-label w-100" for="flexCheckDefault">
+                        <div class="font-bold">{{data.taskName}}</div>
+                     </label>
+                  </div>
+                  <div class="col-sm-11 d-flex ms-5">
+                     <span *ngIf="data.dueDate != null && data.dueDate != ''"><i class="fa-solid fa-calendar-xmark me-2"></i>{{data.dueDate}}</span>
+                     <span *ngIf="data.listName != null && data.listName != ''"><i class="fa-solid fa-square me-2 ms-4"></i>{{data.listName}}</span>
+                  </div>
                </div>
-               <div class="col-sm-11 d-flex ms-5">
-                  <span><i class="fa-solid fa-calendar-xmark me-2"></i>Date</span>
-                  <span><i class="fa-solid fa-square me-2 ms-4"></i>List</span>
-               </div>
-            </div>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-         </li>
-      </a>
-      <a href="" class="a-new-list border-bottom rounded">
+               <span><i class="fa-solid fa-chevron-right"></i></span>
+            </li>
+         </a>
+      </div>
+      <!-- <a href="" class="a-new-list border-bottom rounded">
          <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto d-flex">
                <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault" disabled>
@@ -53,7 +51,7 @@
             </div>
             <span><i class="fa-solid fa-chevron-right"></i></span>
          </li>
-      </a>
+      </a> -->
    </ul>
 </div>
-<router-outlet *ngIf="dataService.getBtnToggle()"></router-outlet>
+<router-outlet *ngIf="apiService.getBtnToggle()"></router-outlet>

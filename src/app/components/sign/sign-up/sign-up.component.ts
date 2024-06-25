@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../../services/data.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CallApiService } from '../../../services/call-api.service';
 
 @Component({
    selector: 'app-sign-up',
@@ -14,13 +14,13 @@ import { CommonModule } from '@angular/common';
 export class SignUpComponent {
    msg: any;
    showMsg: any
-   constructor(private dataService: DataService, private route: Router) { }
+   constructor(private apiService: CallApiService, private route: Router) { }
 
    // signup(signuForm : NgForm) {
    signup(firstName: any, lastName: any, userEmail: any, userPassword: any) {
 
       // const islogin = this.dataService.signup({ signuForm.value.firstName, signuForm.value.lastName, signuForm.value.userEmail, signuForm.value.userPassword })
-      const islogin = this.dataService.signup({ firstName, lastName, userEmail, userPassword })
+      const islogin = this.apiService.signup({ firstName, lastName, userEmail, userPassword })
          .subscribe(
             {
                next: (data: any) => {

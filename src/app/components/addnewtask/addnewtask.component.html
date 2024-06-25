@@ -4,6 +4,7 @@
     <form>
         <!-- <form [formGroup]="newTaskData"> -->
         <div class="">
+            <h4 class="text-center text-danger" *ngIf="msgToDisplay">{{response.msg}}</h4>
             <span class="d-flex justify-content-between">
                 <h4 class="task-text">Tasks:</h4>
                 <button type="button" (click)="btnOFF()" class="btn-close" aria-label="Close"></button>
@@ -11,16 +12,16 @@
             <ul class="list-group btn-bottom p-0">
 
                 <div class="input-taskName">
-                    <input type="text" placeholder="New Task" #taskTitle class="form-control">
+                    <input type="text" placeholder="New Task" #taskTitle value="{{datas.taskName}}" class="form-control">
                 </div>
                 <div class="input-desc mt-4">
                     <textarea class="fixed-textarea form-control" placeholder="Task Description"
-                        #taskDecription></textarea>
+                        #taskDecription value="{{datas.taskDecription}}"></textarea>
                 </div>
                 <div class="row mt-3">
                     <div class="col-sm-10">
                         <label for="dropdown">List:</label>
-                        <select id="dropdown" name="dropdown" #listName>
+                        <select id="dropdown" name="dropdown" #listName value="{{datas.listName}}">
                             <!-- <select id="dropdown" name="dropdown" formControlName="listName"> -->
                             <option value="">- Select -</option>
                             <option value="personal">Personal</option>
@@ -33,7 +34,7 @@
                         <!-- <label>Due Date:</label>
                         <input type="date" id="datepicker" name="datepicker" min="2024-06-05" #dueDate> -->
                         <label for="date">Due Date:</label>
-                        <input type="date" id="date" [min]="getCurrentDate()" #dueDate>
+                        <input type="date" id="date" [min]="getCurrentDate()" #dueDate value="{{datas.dueDate}}">
                     </div>
                 </div>
                 <div class="mb-3 row me-0">
@@ -50,7 +51,7 @@
         </div>
         <div class="text-center btn-save-del">
             <button type="button" class="btn btn-outline-secondary">Delete Task</button>
-            <button (click)="saveTask(taskTitle.value, taskDecription.value, listName.value, dueDate.value)"
+            <button type="reset" (click)="saveTask(taskTitle.value==''?null:taskTitle.value, taskDecription.value==''?null:taskDecription.value, listName.value==''?null:listName.value, dueDate.value==''?null:dueDate.value)"
                 class="btn btn-outline-warning">Save Changes</button>
         </div>
     </form>
