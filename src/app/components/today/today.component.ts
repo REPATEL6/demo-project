@@ -47,6 +47,11 @@ export class TodayComponent implements OnInit {
   getData(val: any) {
     console.log("getdata:", val)
     this.dataService.storeData(val);
+    if(this.apiService.getBtnToggle()){
+      this.apiService.setBtnToogle(false);
+      console.log(false);
+      
+    }
     this.btnON();
     this.route.navigate(['/today','addnewtask']);
   }

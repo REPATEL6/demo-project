@@ -16,11 +16,13 @@ export class AddnewtaskComponent implements OnDestroy {
 
   response: any;
   msgToDisplay: any;
-  datas:any;
-  constructor(private apiService: CallApiService, private route: Router, private dataService:DataService) { 
+  datas: any;
+  // taskForm
+
+  constructor(private apiService: CallApiService, private route: Router, private dataService: DataService) {
     this.datas = dataService.getStoredData();
-    console.log("Constructor",this.datas);
-    
+    console.log("Constructor", this.datas);
+
   }
 
   btnOFF() {
@@ -51,27 +53,6 @@ export class AddnewtaskComponent implements OnDestroy {
           console.log("Err:", err);
         }
       }
-
-
-
-
-
-      // {
-      // next: (data: any) => {
-      //       if (data.success == '1') {
-      //         // this.response = data.result;
-      // console.log("addnewtask", data);
-      //         this.route.navigate(['/']);
-      //       } else {
-      // this.response = data.msg;
-      // console.log("add new task", this.response);
-      // this.showErrMsg();
-      //     }
-      //   },
-      //   error: (err: any) => {
-      //     console.log("Error", err);
-      //   }
-      // }
     )
 
   }
@@ -94,6 +75,7 @@ export class AddnewtaskComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     console.log("Destroy");
+    this.apiService.setBtnToogle(false);
   }
 
 }

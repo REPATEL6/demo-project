@@ -17,6 +17,9 @@ export const routes: Routes = [
       { path: 'addnewtask', component: AddnewtaskComponent }
     ]
   },
+  {
+    path: 'today/addnewtask1', component: TodayComponent
+  },
 
   {
     path: 'upcoming', component: UpcomingComponent,
