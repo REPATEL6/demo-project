@@ -17,7 +17,7 @@ export class LoginComponent {
    public response: any;
    public showhead: any = null;
    signinForm!: FormGroup;
-
+   
    constructor(private apiService: CallApiService, private route: Router, private fb: FormBuilder) { }
 
    ngOnInit() {
@@ -91,6 +91,6 @@ export class LoginComponent {
       this.showhead = true;
       setTimeout(() => {
          this.showhead = false;
-      },5000)
+      },6000)
    }
 }

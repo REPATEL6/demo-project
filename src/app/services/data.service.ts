@@ -1,4 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { CallApiService } from './call-api.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,47 +15,18 @@ export class DataService {
   //   this.base_url= "http://localhost:8080/demo";
   // }
 
-  // btnToggle?: boolean;
+  constructor(private route:Router, private apiService : CallApiService) {}
 
-  // getBtnToggle(): boolean {
-  //   return this.btnToggle!;
-  // }
-
-  // setBtnToogle(toggle_value: boolean) {
-  //   this.btnToggle = toggle_value;
-  // }
-
-  // // private http = Inject(HttpClient) 
-
-  // getData(): void {
-  //   this.http.get("http://localhost:8080/demo").subscribe((data: any) => {
-  //     console.log(data);
-  //   });
-  // }
-
-  // signin(param:any) {
-  //   console.warn("param",param)
-  //   return this.http.post(this.base_url+"/signin", param)
-  // }
-
-  // signup(param:any) {
-  //   console.warn("signup",param)
-  //   return this.http.post(this.base_url+"/signup", param)
-  // }
-
-  // saveTaskDetails(param:any) {
-  //   return this.http.post(this.base_url+"/savetask", param)
-  // }
-
-  // getTaskDetails(param:number) {
-  //   return this.http.get(this.base_url+"/taskdetail?user_id="+param);
-  // }
-
+  onButtonClick = new Subject();
+  
   data:any;
-  constructor() {}
 
   storeData(val :any) {
     this.data = val;
+    this.apiService.setBtnToogle(true);
+    console.log("btn value:",this.apiService.getBtnToggle());
+    
+    // this.route.navigate(['/addnewtask']);
   }
 
   getStoredData() {

@@ -48,4 +48,5 @@ export class CallApiService {
   getTaskDetails(param:number) {
     return this.http.get(this.base_url+"/taskdetail?user_id="+param);
   }
+
 }

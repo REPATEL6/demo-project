@@ -11,20 +11,21 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
+  // { path: 'today', component: TodayComponent },
   {
     path: 'today', component: TodayComponent,
     children: [
       { path: 'addnewtask', component: AddnewtaskComponent }
     ]
   },
-  {
-    path: 'today/addnewtask1', component: TodayComponent
-  },
+  // {
+  //   path: 'today/addnewtask1', component: TodayComponent
+  // },
 
   {
     path: 'upcoming', component: UpcomingComponent,
     children: [
-      { path: '', component: AddnewtaskComponent }
+      { path: 'addnewtask', component: AddnewtaskComponent }
     ]
   },
 
