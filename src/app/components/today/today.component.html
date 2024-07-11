@@ -16,7 +16,7 @@
       </a>
       <!-- <form [formGroup]="taskList"> -->
       <div *ngFor="let data of response, index as idx" class="border-bottom rounded">
-         <a class="a-new-list border-bottom rounded" (click)="sentData(data, idx)">
+         <a class="a-new-list border-bottom rounded" (click)="sentData(data)">
             <li class="list-group-item d-flex justify-content-between align-items-start">
                <div class="ms-2 me-auto d-flex flex-wrap">
                   <div class="d-flex">
@@ -60,4 +60,5 @@
    </ul>
 <!-- </form> -->
 </div>
-<router-outlet *ngIf="apiService.getBtnToggle()"></router-outlet>
+<router-outlet></router-outlet>
+<!-- <router-outlet *ngIf="apiService.getBtnToggle()"></router-outlet> -->

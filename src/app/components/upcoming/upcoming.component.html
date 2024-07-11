@@ -8,7 +8,7 @@
             <h3><b>Today</b></h3>
             <div class="col-sm-12">
                 <ul class="list-group">
-                    <a routerLink="addnewtask" routerLinkActive="active" (click)="btnON()"
+                    <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" (click)="btnON()"
                         class="a-new-list border">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
@@ -125,4 +125,5 @@
         </div>
     </div>
 </div>
-<router-outlet *ngIf="apiService.getBtnToggle()"></router-outlet>
+<router-outlet></router-outlet>
+<!-- <router-outlet *ngIf="apiService.getBtnToggle()"></router-outlet> -->

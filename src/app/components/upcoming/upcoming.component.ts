@@ -15,7 +15,7 @@ export class UpcomingComponent {
   constructor(public apiService : CallApiService) {}
 
   btnON() {
-    this.apiService.setBtnToogle(true);
+    // this.apiService.setBtnToogle(true);
   }
 
 }

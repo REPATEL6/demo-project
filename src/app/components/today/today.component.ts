@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet , ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { task } from '../../../models/taskDetails'
@@ -14,11 +14,13 @@ import { AddnewtaskComponent } from '../addnewtask/addnewtask.component';
   templateUrl: './today.component.html',
   styleUrl: './today.component.css'
 })
-export class TodayComponent implements OnInit {
+export class TodayComponent implements OnInit, AfterViewInit {
   userid: number | undefined;
   response?:any[];
   taskList!:any;
 
+  @ViewChild(AddnewtaskComponent, {static: true}) addnewComp? : AddnewtaskComponent;
+  
   constructor(public apiService:CallApiService, private route:Router, private dataService: DataService, private activatedRoute:ActivatedRoute, private fb:FormBuilder ) {
     if(sessionStorage.getItem("id") !== undefined){
       this.userid = +sessionStorage.getItem("id")!;
@@ -34,39 +36,47 @@ export class TodayComponent implements OnInit {
       
   }
 
-  btnON() {
-    this.apiService.setBtnToogle(true);
+  ngAfterViewInit(): void {
+    // this.addnewComp?.fillData(this.response)
   }
 
-  callAddNewTaskComp(data:any, idx:number) {
+  btnON() {
+  //   this.apiService.setBtnToogle(true);
+  this.dataService.onButtonClick.next(undefined);
+  }
+  btnOFF() {
+  //   this.apiService.setBtnToogle(false);
+  }
+
+  // callAddNewTaskComp(data:any, idx:number) {
     // data[idx];
-    console.log("At index:",data.id);
+    // console.log("At index:",data.id);
     
     // this.dataService.onButtonClick.next(this.response);
-  }
+  // }
 
   getTasks():any {
     if(this.userid !== undefined){
       this.apiService.getTaskDetails(this.userid).subscribe((data:any) => {
         console.log("gettask data",data.result);
-        // console.log("gettask data",typeof data.result);
         this.response = data.result;
-        // return this.response;
       })
     }
   }
 
-  sentData(val: any, idx:number) {
+  sentData(val: any) {
     console.log("getdata:", val)
-    if(this.apiService.getBtnToggle()){
-      this.apiService.setBtnToogle(false);
-      console.log(false);
-      
-    }
-    this.btnON();
+    // if(this.apiService.getBtnToggle()){
+    //   this.apiService.setBtnToogle(false);
+    // }
+    // this.btnOFF();
     this.dataService.storeData(val);
-    this.callAddNewTaskComp(val, idx);
-    this.ngOnInit()
+    // this.addnewComp!.ngOnDestroy();
+    // this.btnON();
+    // this.addnewComp?.fillData(val)
+    // this.callAddNewTaskComp(val, idx);
+    this.dataService.onButtonClick.next(val);
+    // this.ngOnInit()
     this.route.navigate(['/today','addnewtask'], {skipLocationChange : true});
   }
   

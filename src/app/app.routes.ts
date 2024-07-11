@@ -18,15 +18,18 @@ export const routes: Routes = [
       { path: 'addnewtask', component: AddnewtaskComponent }
     ]
   },
-  // {
-  //   path: 'today/addnewtask1', component: TodayComponent
-  // },
+  {
+    path: 'today', redirectTo:'' , pathMatch: 'full'
+  },
 
   {
     path: 'upcoming', component: UpcomingComponent,
     children: [
       { path: 'addnewtask', component: AddnewtaskComponent }
     ]
+  },
+  {
+    path: 'upcoming', component: UpcomingComponent
   },
 
   { path: '', component: TaskbarComponent, canActivate:[authGuard] },

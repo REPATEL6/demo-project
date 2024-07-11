@@ -20,16 +20,16 @@ export class DataService {
   onButtonClick = new Subject();
   
   data:any;
+  idx?:number;
 
   storeData(val :any) {
     this.data = val;
-    this.apiService.setBtnToogle(true);
-    console.log("btn value:",this.apiService.getBtnToggle());
+    // this.apiService.setBtnToogle(true);
     
     // this.route.navigate(['/addnewtask']);
   }
 
-  getStoredData() {
+   getStoredData() {
     return this.data;
   }
 

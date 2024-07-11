@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CallApiService } from '../../../services/call-api.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
    selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginComponent {
 
    ngOnInit() {
       this.signinForm = this.fb.group({
-         userEmail:[''],
+         userEmail: [''],
          userPassword:['']
       })
    }
@@ -31,9 +31,9 @@ export class LoginComponent {
       this.apiService.signin(this.signinForm.value).subscribe(
          {
             next: (resp: any) => {
-               console.warn("resp", resp);
+               console.log("resp", resp);
                this.response = resp.success;
-               console.warn("result", this.response!);
+               console.log("result", this.response);
                if (this.response == '1') {
                   console.log("islogin")
                   console.log(typeof resp.result.user_id);
@@ -45,11 +45,11 @@ export class LoginComponent {
                   console.log("isnotlogin")
                   sessionStorage.setItem("isLoggedIn", "false");
                   this.showHeader();
-                  this.signinForm.reset();
+                  formData.reset();
                }
             },
             error: (err: any) => {
-               console.log(err);
+               console.warn(err);
 
             }
          }
