@@ -8,25 +8,18 @@ import { Subject } from 'rxjs';
 })
 export class DataService {
 
-  // private resp!:any;
-  // base_url:String;
-
-  // constructor(private http: HttpClient) { 
-  //   this.base_url= "http://localhost:8080/demo";
-  // }
 
   constructor(private route:Router, private apiService : CallApiService) {}
 
-  onButtonClick = new Subject();
+  onButtonClickTodtoAdd = new Subject();
+  // onButtonClickAddtoTod = new Subject();
+  // onButtonClickUpcoming = new Subject();
   
   data:any;
   idx?:number;
 
   storeData(val :any) {
     this.data = val;
-    // this.apiService.setBtnToogle(true);
-    
-    // this.route.navigate(['/addnewtask']);
   }
 
    getStoredData() {

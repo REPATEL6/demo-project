@@ -59,6 +59,14 @@ label {
     box-shadow: none !important;
 }
 
+.footer {
+    position: relative;
+    width: 99%;
+    padding: 2px;
+    bottom: 0;
+    top:auto;
+}
+
 /* ######################## */
 
 @media (max-width: 768px) {

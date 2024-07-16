@@ -7,3 +7,4 @@ export type task = {
     status_id:number,
     user_id:number
 }
+

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CallApiService } from '../../services/call-api.service';
@@ -18,6 +18,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
    msgToDisplay: any;
    datas: any;
    taskForm!: FormGroup;
+   putEmpty?: boolean;
 
    dropdownOptions = [
       { id: 0, name: '-Select-' },
@@ -26,15 +27,21 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
       { id: 3, name: 'Option 3' }
    ];
 
-   constructor(private apiService: CallApiService, private route: Router, private dataService: DataService, private fb: FormBuilder) {
+   constructor(private apiService: CallApiService, private route: Router, private dataService: DataService, private fb: FormBuilder, private activateRoute: ActivatedRoute) {
       console.log("Constructor", this.datas);
 
-      this.dataService.onButtonClick.subscribe((data: any) => {
-         // console.log("called from today",data);
-         this.saveTask(this.taskForm, 0);
-         this.fillData(data);
-      })
+      this.dataService.onButtonClickTodtoAdd.subscribe((data: any) => {
+         console.log("called from today", data);
 
+         if (data !== undefined) {
+            this.fillData(data);
+         }
+         else {
+            console.log("undefined");
+            this.putEmpty = true;
+            this.fillDataEmpty();
+         }
+      })
    }
 
    ngOnInit(): void {
@@ -48,54 +55,37 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
          dueDate: [''],
          user_id: [+sessionStorage.getItem("id")!]
       })
-      if (this.datas != null && this.datas !== undefined) {
-         console.log("data arrived in new task component", this.datas);
-         this.fillData(this.datas);
+      if (this.datas != null && this.datas !== undefined && this.datas != '') {
+         if (!this.putEmpty) {
+            console.log("putEmpty:",this.putEmpty);
+            
+            console.log("data arrived in new task component", this.datas);
+            this.fillData(this.datas);
+         }
       }
    }
 
 
-   btnOFF() {
-      // this.apiService.setBtnToogle(false);
-      this.route.navigate(['/']);
+   btnOFF = () => {
+      this.route.navigate(['../'], { relativeTo: this.activateRoute });
    }
 
-   // saveTask(taskName: any, taskDescription: any, listName: any, dueDate: any) {
    saveTask(formData: FormGroup, num: number) {
-      // const user_id = +sessionStorage.getItem("id")!;
       console.log(this.taskForm.value);
-
-      // const taskResponse = this.apiService.saveTaskDetails({ taskName, taskDescription, listName, dueDate, user_id }).subscribe(
-      // const taskResponse = this.apiService.saveTaskDetails(this.taskForm.value).subscribe(
-      //   {
-      //     next: (data: any) => {
-      //       console.log(data);
-      //       console.log("Success status:", data.success);
-      //       this.response = data;
-      //       if (data.success === 1) {
-      //         this.response = data.result;
-      //         console.log("Response:", data.result);
-      //       } else {
-      //         // this.response = data.msg;
-      //         console.log("msgToDisplay:", this.response.msg);
-      //         this.showErrMsg();
-      //       }
-
-      //     },
-      //     error: (err: any) => {
-      //       console.log("Err:", err);
-      //     }
-      //   });
-      if (num === 1) {
+      if (num > 0) {
+         this.dropdownOptions.forEach((value, idx) => {
+            if (idx === this.taskForm.value.listName) {
+               this.taskForm.value.listName = value.name;
+            }
+         })
+         console.log(this.taskForm.value.listName);
          this.callSaveTaskApi(formData);
-      } else if (num === 0) {
-         formData.reset();
-      }
 
+      }
    }
 
    callSaveTaskApi(formData: FormGroup) {
-      const taskResponse = this.apiService.saveTaskDetails(this.taskForm.value).subscribe(
+      const taskResponse = this.apiService.saveTaskDetails(formData.value).subscribe(
          {
             next: (data: any) => {
                console.log(data);
@@ -104,6 +94,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
                if (data.success === 1) {
                   this.response = data.result;
                   console.log("Response:", data.result);
+                  // this.dataService.onButtonClickAddtoTod.next("hello");
                } else {
                   // this.response = data.msg;
                   console.log("msgToDisplay:", this.response.msg);
@@ -123,7 +114,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0'); // January is 0!
       const day = String(now.getDate()).padStart(2, '0');
-      return `${day}-${month}-${year}`;
+      return `${year}-${month}-${day}`;
    }
 
    showErrMsg() {
@@ -135,7 +126,6 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
 
    ngOnDestroy(): void {
       console.log("Destroy");
-      // this.apiService.setBtnToogle(false);
    }
 
    fillData(resp: any) {
@@ -146,8 +136,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
             idx = 0;
          }
          console.log("filldataindex", idx);
-         // this.taskForm.reset();
-         this.apiService.setBtnToogle(true);
+         console.log("filldatalistname", resp.listName);
          this.taskForm.patchValue({
             taskName: resp.taskName,
             taskDescription: resp.taskDescription,
@@ -155,11 +144,15 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
             dueDate: resp.dueDate
          })
       }
-      else{
-         this.taskForm.patchValue({
-            listName: 0
-         })
-      }
+   }
+
+   fillDataEmpty() {
+      this.taskForm.patchValue({
+         taskName: '',
+         taskDescription: '',
+         listName: 0,
+         dueDate: ''
+      })
    }
 }
 

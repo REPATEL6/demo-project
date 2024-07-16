@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet , ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { task } from '../../../models/taskDetails'
-import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CallApiService } from '../../services/call-api.service';
 import { DataService } from '../../services/data.service';
 import { AddnewtaskComponent } from '../addnewtask/addnewtask.component';
@@ -10,55 +10,65 @@ import { AddnewtaskComponent } from '../addnewtask/addnewtask.component';
 @Component({
   selector: 'app-today',
   standalone: true,
-  imports: [RouterOutlet,RouterLink,RouterLinkActive,CommonModule, ReactiveFormsModule,AddnewtaskComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, ReactiveFormsModule, AddnewtaskComponent, FormsModule],
   templateUrl: './today.component.html',
   styleUrl: './today.component.css'
 })
-export class TodayComponent implements OnInit, AfterViewInit {
+export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   userid: number | undefined;
-  response?:any[];
-  taskList!:any;
+  response: any;
 
-  @ViewChild(AddnewtaskComponent, {static: true}) addnewComp? : AddnewtaskComponent;
-  
-  constructor(public apiService:CallApiService, private route:Router, private dataService: DataService, private activatedRoute:ActivatedRoute, private fb:FormBuilder ) {
-    if(sessionStorage.getItem("id") !== undefined){
+  @ViewChild(AddnewtaskComponent, { static: true }) addnewComp?: AddnewtaskComponent;
+
+  dropdownOptions = [
+    { id: 0, name: '-Select-' },
+    { id: 1, name: 'work' },
+    { id: 2, name: 'personal' },
+    { id: 3, name: 'Option 3' }
+  ];
+
+  constructor(public apiService: CallApiService, private route: Router, private dataService: DataService, private activateRoute: ActivatedRoute, private fb: FormBuilder) {
+    if (sessionStorage.getItem("id") !== undefined) {
       this.userid = +sessionStorage.getItem("id")!;
-    }else{
-      sessionStorage.setItem("isLoggedIn","false");
+    } else {
+      sessionStorage.setItem("isLoggedIn", "false");
       route.navigate(['/']);
     }
+    // this.dataService.onButtonClickAddtoTod.subscribe((data:any) => {
+    //   console.log("Helloooooooooooooooooooooooooooooooooo");
+    //   this.getTasks();
+
+    // })
   }
 
   ngOnInit(): void {
-    this.getTasks();  
+    this.getTasks();
     console.log("oninit");
-      
   }
 
   ngAfterViewInit(): void {
-    // this.addnewComp?.fillData(this.response)
+    console.log("afterViewInit");
+  }
+
+  ngOnChanges(): void {
+    console.log("on Changes");
+
+  }
+
+  ngOnDestroy(): void {
   }
 
   btnON() {
-  //   this.apiService.setBtnToogle(true);
-  this.dataService.onButtonClick.next(undefined);
-  }
-  btnOFF() {
-  //   this.apiService.setBtnToogle(false);
+    console.log("btn clicked");
+    this.dataService.storeData(undefined);
+    this.dataService.onButtonClickTodtoAdd.next(undefined);
   }
 
-  // callAddNewTaskComp(data:any, idx:number) {
-    // data[idx];
-    // console.log("At index:",data.id);
-    
-    // this.dataService.onButtonClick.next(this.response);
-  // }
 
-  getTasks():any {
-    if(this.userid !== undefined){
-      this.apiService.getTaskDetails(this.userid).subscribe((data:any) => {
-        console.log("gettask data",data.result);
+  getTasks(): any {
+    if (this.userid !== undefined) {
+      this.apiService.getTaskDetails(this.userid).subscribe((data: any) => {
+        console.log("gettask data", data.result);
         this.response = data.result;
       })
     }
@@ -66,19 +76,10 @@ export class TodayComponent implements OnInit, AfterViewInit {
 
   sentData(val: any) {
     console.log("getdata:", val)
-    // if(this.apiService.getBtnToggle()){
-    //   this.apiService.setBtnToogle(false);
-    // }
-    // this.btnOFF();
     this.dataService.storeData(val);
-    // this.addnewComp!.ngOnDestroy();
-    // this.btnON();
-    // this.addnewComp?.fillData(val)
-    // this.callAddNewTaskComp(val, idx);
-    this.dataService.onButtonClick.next(val);
-    // this.ngOnInit()
-    this.route.navigate(['/today','addnewtask'], {skipLocationChange : true});
+    this.dataService.onButtonClickTodtoAdd.next(val);
+    this.route.navigate(['/today', 'addnewtask'], { skipLocationChange: true });
   }
-  
+
 
 }

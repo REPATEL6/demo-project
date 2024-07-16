@@ -15,13 +15,13 @@ export class CallApiService {
 
   btnToggle?: boolean;
 
-  getBtnToggle(): boolean {
-    return this.btnToggle!;
-  }
+  // getBtnToggle(): boolean {
+  //   return this.btnToggle!;
+  // }
 
-  setBtnToogle(toggle_value: boolean) {
-    this.btnToggle = toggle_value;
-  }
+  // setBtnToogle(toggle_value: boolean) {
+  //   this.btnToggle = toggle_value;
+  // }
 
   // private http = Inject(HttpClient) 
 
