@@ -12,7 +12,7 @@ export class DataService {
   constructor(private route:Router, private apiService : CallApiService) {}
 
   onButtonClickTodtoAdd = new Subject();
-  // onButtonClickAddtoTod = new Subject();
+  onButtonClickAddtoTod = new Subject();
   // onButtonClickUpcoming = new Subject();
   
   data:any;

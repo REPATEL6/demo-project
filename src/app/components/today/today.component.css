@@ -52,6 +52,29 @@ input[type='text'] {
     padding: 0;
 }
 
+.dateWidth {
+    width: 6em;
+}
+
+.listWidth {
+    width: 10em;
+}
+
+.taskNameWidth {
+    width: 30em;
+}
+
+.manual-scroll {
+    aspect-ratio: 9/4;
+    /* padding: 40px 0; */
+    /* margin: auto; */
+    /* border: solid black 2px; */
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+
 
 /* ############### */
 
@@ -63,4 +86,11 @@ input[type='text'] {
         margin-bottom: 20px;
         /* Add space between boxes on smaller screens */
     }
+
+    /* .manual-scroll {
+        aspect-ratio: 5/3;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+    } */
 }

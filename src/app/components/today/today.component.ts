@@ -17,6 +17,7 @@ import { AddnewtaskComponent } from '../addnewtask/addnewtask.component';
 export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   userid: number | undefined;
   response: any;
+  taskForm: any;
 
   @ViewChild(AddnewtaskComponent, { static: true }) addnewComp?: AddnewtaskComponent;
 
@@ -34,16 +35,18 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
       sessionStorage.setItem("isLoggedIn", "false");
       route.navigate(['/']);
     }
-    // this.dataService.onButtonClickAddtoTod.subscribe((data:any) => {
-    //   console.log("Helloooooooooooooooooooooooooooooooooo");
-    //   this.getTasks();
-
-    // })
+    this.dataService.onButtonClickAddtoTod.subscribe((data: any) => {
+      console.log("Helloooooooooooooooooooooooooooooooooo:",data);
+      this.getTasks();
+    });
   }
 
   ngOnInit(): void {
-    this.getTasks();
     console.log("oninit");
+    this.taskForm = this.fb.group({
+      tasks: new FormArray([])
+    })
+    this.getTasks();
   }
 
   ngAfterViewInit(): void {
@@ -64,20 +67,71 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
     this.dataService.onButtonClickTodtoAdd.next(undefined);
   }
 
+  addTaskFormGroup(): FormGroup {
+    let newFormGroup = this.fb.group({
+      taskName: [{ value: '', disabled: true }],
+      taskDescription: [{ value: '', disabled: true }],
+      listName: [{ value: '', disabled: true }],
+      dueDate: [{ value: '', disabled: true }]
+    });
+    return newFormGroup;
+  }
 
-  getTasks(): any {
+
+  getTasks() {
     if (this.userid !== undefined) {
       this.apiService.getTaskDetails(this.userid).subscribe((data: any) => {
         console.log("gettask data", data.result);
-        this.response = data.result;
+        this.fillDataEmpty();
+        if (data.success === 1) {
+          // this.response = data.result;
+          // let taskFORM = this.taskForm as FormGroup;
+          // taskFORM.reset();
+          let count = 0;
+          let taskArray = this.taskForm.get('tasks') as FormArray;
+          for (let item of data.result) {
+            taskArray.push(this.addTaskFormGroup());
+            taskArray.at(count++).patchValue(item);
+          }
+        }
+
       })
     }
   }
 
-  sentData(val: any) {
-    console.log("getdata:", val)
-    this.dataService.storeData(val);
-    this.dataService.onButtonClickTodtoAdd.next(val);
+  fillDataEmpty() {
+    let taskArrays = this.taskForm.get('tasks') as FormArray;
+    console.log("ArrayLength",taskArrays.length);
+    // taskArrays.controls.forEach((element,idx) => {
+      
+    // });
+    
+    for (let i = taskArrays.length-1; i >= 0; i--) {
+      taskArrays.removeAt(i);
+      console.log("i:",i);
+      
+    }
+  }
+
+  // sentData(val: any) {
+  //   console.log("getdata:", val)
+  //   this.dataService.storeData(val);
+  //   this.dataService.onButtonClickTodtoAdd.next(val);
+  //   this.route.navigate(['/today', 'addnewtask'], { skipLocationChange: true });
+  // }
+
+  sentData(idx: number) {
+    console.log("idx", idx);
+    console.log("abc", this.taskForm.get('tasks').at(idx).get('listName').value);
+    if (this.taskForm.get('tasks').at(idx).get('listName').value == '-Select-') {
+      console.log("-select");
+      this.taskForm.get('tasks').at(idx).get('listName').value = '';
+    }
+    console.log("abc", this.taskForm.get('tasks').at(idx).get('listName').value);
+    const data = this.taskForm.get('tasks').at(idx);
+    console.log("clicked data", data.value);
+    this.dataService.storeData(data.value);
+    this.dataService.onButtonClickTodtoAdd.next(data.value);
     this.route.navigate(['/today', 'addnewtask'], { skipLocationChange: true });
   }
 

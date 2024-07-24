@@ -57,8 +57,8 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
       })
       if (this.datas != null && this.datas !== undefined && this.datas != '') {
          if (!this.putEmpty) {
-            console.log("putEmpty:",this.putEmpty);
-            
+            console.log("putEmpty:", this.putEmpty);
+
             console.log("data arrived in new task component", this.datas);
             this.fillData(this.datas);
          }
@@ -74,11 +74,16 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
       console.log(this.taskForm.value);
       if (num > 0) {
          this.dropdownOptions.forEach((value, idx) => {
-            if (idx === this.taskForm.value.listName) {
-               this.taskForm.value.listName = value.name;
+            if (idx == formData.value.listName) {
+               if (idx === 0) {
+                  this.taskForm.value.listName = ''
+               } else {
+                  this.taskForm.value.listName = value.name;
+                  formData.value.listName = value.name;
+               }
             }
          })
-         console.log(this.taskForm.value.listName);
+         console.log("listName", formData.value.listName);
          this.callSaveTaskApi(formData);
 
       }
@@ -94,7 +99,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
                if (data.success === 1) {
                   this.response = data.result;
                   console.log("Response:", data.result);
-                  // this.dataService.onButtonClickAddtoTod.next("hello");
+                  this.dataService.onButtonClickAddtoTod.next("hello");
                } else {
                   // this.response = data.msg;
                   console.log("msgToDisplay:", this.response.msg);
@@ -106,6 +111,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
                console.log("Err:", err);
             }
          });
+      // this.dataService.onButtonClickAddtoTod.next("hello");
    }
 
    // Get current date in YYYY-MM-DD format

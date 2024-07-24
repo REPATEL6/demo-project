@@ -1,8 +1,10 @@
 <div class="boxs rounded">
    <h1 class="mb-5"><b>Today</b><span class="badge border rounded ms-5 p-2">14</span></h1>
    <!-- <form> -->
+      <div class="manual-scroll">
    <ul class="list-group">
-      <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" (click)="btnON()" class="a-new-list border rounded">
+      <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" (click)="btnON()"
+         class="a-new-list border rounded">
          <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto d-flex">
                <div>
@@ -12,8 +14,8 @@
             </div>
          </li>
       </a>
-      
-      <div *ngFor="let data of response" class="border-bottom rounded">
+
+      <!-- <div *ngFor="let data of response" class="border-bottom rounded">
          <a class="a-new-list border-bottom rounded" (click)="sentData(data)">
             <li class="list-group-item d-flex justify-content-between align-items-start">
                <div class="ms-2 me-auto d-flex flex-wrap">
@@ -32,8 +34,49 @@
                <span><i class="fa-solid fa-chevron-right"></i></span>
             </li>
          </a>
-      </div>
+      </div> -->
+      <!-- ------------------------------------- -->
+      <form [formGroup]="taskForm">
+         <div formArrayName="tasks">
+            <div *ngFor="let control of taskForm.get('tasks')['controls'];let i = index" [formGroupName]="i"
+               class="border-bottom rounded">
+               <a class="a-new-list border-bottom rounded" (click)="sentData(i)">
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto d-flex flex-wrap">
+                        <div class="d-flex">
+                           <input class="form-check-input me-3" type="checkbox" id="" disabled>
+                           <!-- <label class="form-check-label w-100" for=""> -->
+                           <!-- <div class="font-bold">{{data.taskName}}</div> -->
+                           <input type="text" formControlName="taskName" class="taskNameWidth" />
+                           <!-- <div class="d-none">{{data.taskDecription}}</div> -->
+                           <input type="text" formControlName="taskDescription" class="d-none" />
+                           <!-- </label> -->
+                        </div>
+                        <div class="col-sm-11 d-flex ms-5">
+                           @if (taskForm.get('tasks').at(i).get('dueDate').value) {
+                           <span>
+                              <i class="fa-solid fa-calendar-xmark me-2"></i><input type="text"
+                                 formControlName="dueDate" class="dateWidth">
+                           </span>
+                           }@else {<input type="text" formControlName="dueDate" class="d-none">}
+                           @if (taskForm.get('tasks').at(i).get('listName').value) {
+                           <span>
+                              <i class="fa-solid fa-square me-2 ms-4"></i><input type="text" formControlName="listName"
+                                 class="listWidth">
+                           </span>
+                           }@else{<input type="text" formControlName="listName" class="d-none">}
+                        </div>
+                     </div>
+                     <span><i class="fa-solid fa-chevron-right"></i></span>
+                  </li>
+               </a>
+            </div>
+         </div>
+      </form>
+
+      <!-- ------------------------------------- -->
    </ul>
-<!-- </form> -->
+   </div>
+   <!-- </form> -->
 </div>
 <router-outlet></router-outlet>
