@@ -4,6 +4,7 @@ import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CallApiService } from '../../services/call-api.service';
 import { DataService } from '../../services/data.service';
+import { error } from 'console';
 
 @Component({
    selector: 'app-addnewtask',
@@ -41,7 +42,19 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
             this.putEmpty = true;
             this.fillDataEmpty();
          }
-      })
+      });
+      this.dataService.onButtonClickUpctoAdd.subscribe((data: any) => {
+         console.log("called from today", data);
+
+         if (data !== undefined) {
+            this.fillData(data);
+         }
+         else {
+            console.log("undefined");
+            this.putEmpty = true;
+            this.fillDataEmpty();
+         }
+      });
    }
 
    ngOnInit(): void {
@@ -49,6 +62,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
 
       console.log("ngOnInit of addnewtask");
       this.taskForm = this.fb.group({
+         id: [''],
          taskName: [''],
          taskDescription: [''],
          listName: [0],
@@ -72,11 +86,15 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
 
    saveTask(formData: FormGroup, num: number) {
       console.log(this.taskForm.value);
+      formData.value.user_id = this.taskForm.value.user_id;
+      console.log("user_id:",formData.value.user_id);
+      
       if (num > 0) {
          this.dropdownOptions.forEach((value, idx) => {
             if (idx == formData.value.listName) {
                if (idx === 0) {
-                  this.taskForm.value.listName = ''
+                  this.taskForm.value.listName = '';
+                  formData.value.listName = '';
                } else {
                   this.taskForm.value.listName = value.name;
                   formData.value.listName = value.name;
@@ -90,7 +108,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
    }
 
    callSaveTaskApi(formData: FormGroup) {
-      const taskResponse = this.apiService.saveTaskDetails(formData.value).subscribe(
+      const taskResponse = this.apiService.saveTaskDetails(this.taskForm.value).subscribe(
          {
             next: (data: any) => {
                console.log(data);
@@ -100,6 +118,8 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
                   this.response = data.result;
                   console.log("Response:", data.result);
                   this.dataService.onButtonClickAddtoTod.next("hello");
+                  this.dataService.onButtonClickAddtoUpc.next("hello");
+                  this.fillDataEmpty();
                } else {
                   // this.response = data.msg;
                   console.log("msgToDisplay:", this.response.msg);
@@ -144,6 +164,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
          console.log("filldataindex", idx);
          console.log("filldatalistname", resp.listName);
          this.taskForm.patchValue({
+            id: resp.id,
             taskName: resp.taskName,
             taskDescription: resp.taskDescription,
             listName: idx,
@@ -154,11 +175,44 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
 
    fillDataEmpty() {
       this.taskForm.patchValue({
+         id: '',
          taskName: '',
          taskDescription: '',
          listName: 0,
          dueDate: ''
       })
+   }
+
+   deleteTask() {
+      console.log("user_id:", this.taskForm.value.user_id);
+      console.log("data", this.taskForm.value);
+      console.log("delete id:", this.taskForm.value.id);
+      if (this.taskForm.value.id) {
+         this.apiService.deleteTask(this.taskForm.value.id).subscribe({
+            next: (data: any) => {
+               console.log("delete:", data);
+               this.response = data;
+               if(data.success !==1){
+                  this.showErrMsg();
+               }else{
+                  console.log("deletion done! =",this.response.result);
+                  this.dataService.onButtonClickAddtoTod.next("hello");
+               }
+            },
+            error: (err: any) => {
+               this.response.msg = "Something get wrong!";
+               console.log("Err:", err);
+            }
+         })
+      }else{
+         this.response.msg = "id is null";
+         console.log("msgToDisplay:", this.response.msg);
+         this.showErrMsg();
+      }
+      
+      this.taskForm.reset();
+      this.fillDataEmpty();
+      
    }
 }
 

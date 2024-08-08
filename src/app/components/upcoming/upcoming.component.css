@@ -1,56 +1,92 @@
 :host {
-    display: contents;
+  display: contents;
 }
 
 .boxs {
-    background-color: #f0f0f0;
-    padding: 20px;
-    box-sizing: border-box;
-    margin: 0 15px 0 15px;
-    flex-grow: 1;
-    /* Allow the second container to fill the remaining space */
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0 15px 0 15px;
+  flex-grow: 1;
+  /* Allow the second container to fill the remaining space */
 }
 
 /* ###################### */
 
 .badge {
-    background-color: #d1eaed;
-    color: #4f5151;
-    padding: auto;
-  }
+  background-color: #d1eaed;
+  color: #4f5151;
+  padding: auto;
+}
 
-  .list-group-item {
-    border: none;
-  }
+.list-group-item {
+  border: none;
+}
 
-  .a-new-list {
-    text-decoration: none;
-    color: #212529;
-    border-radius: 5px;
-  }
+#form1, #form2, #form3 {
+  cursor: pointer;
+}
 
-  .fa-solid {
-    font-size: 14px;
-  }
+.a-new-list {
+  text-decoration: none;
+  color: #212529;
+  border-radius: 5px;
+}
 
-  .font-bold {
-    font-weight: 630;
-    color: #4f5151;
-  }
+.fa-solid {
+  font-size: 14px;
+}
 
-  label {
-    display: inline-block;
-    width: 75px; 
-  }
+.font-bold {
+  font-weight: 630;
+  color: #4f5151;
+}
+
+label {
+  display: inline-block;
+  width: 75px;
+}
+
+input[type='text'] {
+  border: none;
+  color: black !important;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.dateWidth {
+  width: 6em;
+}
+
+.listWidth {
+  width: 10em;
+}
+
+.taskNameWidthTod {
+  width: 30em;
+}
+
+.taskNameWidthTom,
+.taskNameWidthAfterTom {
+  width: 14em;
+}
+
+.manual-scroll {
+  width: 100%;   
+  height: 175px;  
+  overflow: auto; 
+}
+
 
 /* ###################### */
 
 @media (max-width: 768px) {
 
-    .boxs {
-        flex-grow: 1;
-        /* Allow the boxes to grow and fill available space */
-        margin-bottom: 20px;
-        /* Add space between boxes on smaller screens */
-    }
+  .boxs {
+    flex-grow: 1;
+    /* Allow the boxes to grow and fill available space */
+    margin-bottom: 20px;
+    /* Add space between boxes on smaller screens */
+  }
 }

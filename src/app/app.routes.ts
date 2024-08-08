@@ -29,7 +29,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'upcoming', component: UpcomingComponent
+    path: 'upcoming',  redirectTo:'' , pathMatch: 'full'
   },
 
   { path: '', component: TaskbarComponent, canActivate:[authGuard] },

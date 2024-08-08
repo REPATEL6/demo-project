@@ -36,7 +36,7 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
       route.navigate(['/']);
     }
     this.dataService.onButtonClickAddtoTod.subscribe((data: any) => {
-      console.log("Helloooooooooooooooooooooooooooooooooo:",data);
+      console.log("Helloooooooooooooooooooooooooooooooooo:", data);
       this.getTasks();
     });
   }
@@ -69,6 +69,7 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
 
   addTaskFormGroup(): FormGroup {
     let newFormGroup = this.fb.group({
+      id: [{ value: '', disabled: true }],
       taskName: [{ value: '', disabled: true }],
       taskDescription: [{ value: '', disabled: true }],
       listName: [{ value: '', disabled: true }],
@@ -82,7 +83,7 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
     if (this.userid !== undefined) {
       this.apiService.getTaskDetails(this.userid).subscribe((data: any) => {
         console.log("gettask data", data.result);
-        this.fillDataEmpty();
+        this.filledDataEmpty();
         if (data.success === 1) {
           // this.response = data.result;
           // let taskFORM = this.taskForm as FormGroup;
@@ -99,17 +100,17 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
     }
   }
 
-  fillDataEmpty() {
+  filledDataEmpty() {
     let taskArrays = this.taskForm.get('tasks') as FormArray;
-    console.log("ArrayLength",taskArrays.length);
+    console.log("ArrayLength", taskArrays.length);
     // taskArrays.controls.forEach((element,idx) => {
-      
+
     // });
-    
-    for (let i = taskArrays.length-1; i >= 0; i--) {
+
+    for (let i = taskArrays.length - 1; i >= 0; i--) {
       taskArrays.removeAt(i);
-      console.log("i:",i);
-      
+      // console.log("i:",i);
+
     }
   }
 

@@ -46,6 +46,10 @@ export class CallApiService {
     return this.http.post(this.base_url+"/savetask", param)
   }
 
+  deleteTask(param:any) {
+    return this.http.get(this.base_url+"/deletetask?taskId="+param);
+  }
+
   getTaskDetails(param:number) {
     return this.http.get(this.base_url+"/taskdetail?user_id="+param);
   }

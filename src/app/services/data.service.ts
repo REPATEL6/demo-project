@@ -13,7 +13,8 @@ export class DataService {
 
   onButtonClickTodtoAdd = new Subject();
   onButtonClickAddtoTod = new Subject();
-  // onButtonClickUpcoming = new Subject();
+  onButtonClickAddtoUpc = new Subject();
+  onButtonClickUpctoAdd = new Subject();
   
   data:any;
   idx?:number;

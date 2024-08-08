@@ -1,23 +1,24 @@
 <div class="boxs">
 
     <div class="container">
-        <h1 class="mb-5"><b>Upcoming</b><span class="badge rounded ms-5 p-2">14</span></h1>
+        <h1 class="mb-4"><b>Upcoming</b><span class="badge rounded ms-5 p-2">14</span></h1>
         <div class="row">
             <h3><b>Today</b></h3>
             <div class="col-sm-12">
-                <ul class="list-group">
-                    <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" (click)="btnOFF()"
-                        class="a-new-list border">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto d-flex">
-                                <div>
-                                    <i class="fa-solid fa-plus"></i>
+                <div class="manual-scroll">
+                    <ul class="list-group">
+                        <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" (click)="btnON()"
+                            class="a-new-list border">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto d-flex">
+                                    <div>
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <div class="font-bold ms-2">Add New Task</div>
                                 </div>
-                                <div class="font-bold ms-2">Add New Task</div>
-                            </div>
-                        </li>
-                    </a>
-                    <a href="/" class="a-new-list border-bottom">
+                            </li>
+                        </a>
+                        <!-- <a href="/" class="a-new-list border-bottom">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
@@ -27,8 +28,51 @@
                             </div>
                             <span><i class="fa-solid fa-chevron-right"></i></span>
                         </li>
-                    </a>
-                    <!-- <a href="" class="a-new-list border-bottom">
+                    </a> -->
+                        <form [formGroup]="upcomingTaskForm" id="form1">
+                            <div formArrayName="today">
+                                <div *ngFor="let control of upcomingTaskForm.get('today')['controls'];let i = index"
+                                    [formGroupName]="i" class="border-bottom rounded">
+                                    <a class="a-new-list border-bottom rounded" (click)="sentData('today',i)">
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto d-flex flex-wrap">
+                                                <div class="d-flex">
+                                                    <input class="form-check-input me-3" type="hidden" id=""
+                                                        formControlName="id">
+                                                    <input class="form-check-input me-3" type="checkbox" id="" disabled>
+                                                    <!-- <label class="form-check-label w-100" for=""> -->
+                                                    <!-- <div class="font-bold">{{data.taskName}}</div> -->
+                                                    <input type="text" formControlName="taskName"
+                                                        class="taskNameWidthTod" />
+                                                    <!-- <div class="d-none">{{data.taskDecription}}</div> -->
+                                                    <input type="text" formControlName="taskDescription"
+                                                        class="d-none" />
+                                                    <!-- </label> -->
+                                                </div>
+                                                <div class="col-sm-11 d-flex ms-5">
+                                                    @if (upcomingTaskForm.get('today').at(i).get('dueDate').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-calendar-xmark me-2"></i><input
+                                                            type="text" formControlName="dueDate" class="dateWidth">
+                                                    </span>
+                                                    }@else {<input type="text" formControlName="dueDate"
+                                                        class="d-none">}
+                                                    @if (upcomingTaskForm.get('today').at(i).get('listName').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-square me-2 ms-4"></i><input type="text"
+                                                            formControlName="listName" class="listWidth">
+                                                    </span>
+                                                    }@else{<input type="text" formControlName="listName"
+                                                        class="d-none">}
+                                                </div>
+                                            </div>
+                                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                                        </li>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- <a href="" class="a-new-list border-bottom">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
@@ -48,14 +92,16 @@
                             <span><i class="fa-solid fa-chevron-right"></i></span>
                         </li>
                     </a> -->
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-sm-6 p-2">
                 <h3><b>Tomorrow</b></h3>
-                <ul class="list-group">
-                    <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
+                <div class="manual-scroll">
+                    <ul class="list-group">
+                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <div>
@@ -64,8 +110,51 @@
                                 <div class="font-bold ms-2">Add New Task</div>
                             </div>
                         </li>
-                    </a>
-                    <!-- <a href="" class="a-new-list border-bottom">
+                    </a> -->
+                        <form [formGroup]="upcomingTaskForm" id="form2">
+                            <div formArrayName="tomorrow">
+                                <div *ngFor="let control of upcomingTaskForm.get('tomorrow')['controls'];let i = index"
+                                    [formGroupName]="i" class="border-bottom rounded">
+                                    <a class="a-new-list border-bottom rounded" (click)="sentData('tomorrow',i)">
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto d-flex flex-wrap">
+                                                <div class="d-flex">
+                                                    <input class="form-check-input me-3" type="hidden" id=""
+                                                        formControlName="id">
+                                                    <input class="form-check-input me-3" type="checkbox" id="" disabled>
+                                                    <!-- <label class="form-check-label w-100" for=""> -->
+                                                    <!-- <div class="font-bold">{{data.taskName}}</div> -->
+                                                    <input type="text" formControlName="taskName"
+                                                        class="taskNameWidthTom" />
+                                                    <!-- <div class="d-none">{{data.taskDecription}}</div> -->
+                                                    <input type="text" formControlName="taskDescription"
+                                                        class="d-none" />
+                                                    <!-- </label> -->
+                                                </div>
+                                                <div class="col-sm-11 d-flex ms-5">
+                                                    @if (upcomingTaskForm.get('tomorrow').at(i).get('dueDate').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-calendar-xmark me-2"></i><input
+                                                            type="text" formControlName="dueDate" class="dateWidth">
+                                                    </span>
+                                                    }@else {<input type="text" formControlName="dueDate"
+                                                        class="d-none">}
+                                                    @if (upcomingTaskForm.get('tomorrow').at(i).get('listName').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-square me-2 ms-4"></i><input type="text"
+                                                            formControlName="listName" class="listWidth">
+                                                    </span>
+                                                    }@else{<input type="text" formControlName="listName"
+                                                        class="d-none">}
+                                                </div>
+                                            </div>
+                                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                                        </li>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- <a href="" class="a-new-list border-bottom">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
@@ -83,12 +172,14 @@
                             <span><i class="fa-solid fa-chevron-right"></i></span>
                         </li>
                     </a> -->
-                </ul>
+                    </ul>
+                </div>
             </div>
             <div class="col-sm-6 p-2">
                 <h4><b>After Tomorrow</b></h4>
-                <ul class="list-group">
-                    <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
+                <div class="manual-scroll">
+                    <ul class="list-group">
+                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <div>
@@ -97,8 +188,51 @@
                                 <div class="font-bold ms-2">Add New Task</div>
                             </div>
                         </li>
-                    </a>
-                    <!-- <a href="" class="a-new-list border-bottom">
+                    </a> -->
+                        <form [formGroup]="upcomingTaskForm" id="form3">
+                            <div formArrayName="upcoming">
+                                <div *ngFor="let control of upcomingTaskForm.get('upcoming')['controls'];let i = index"
+                                    [formGroupName]="i" class="border-bottom rounded">
+                                    <a class="a-new-list border-bottom rounded" (click)="sentData('upcoming',i)">
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto d-flex flex-wrap">
+                                                <div class="d-flex">
+                                                    <input class="form-check-input me-3" type="hidden" id=""
+                                                        formControlName="id">
+                                                    <input class="form-check-input me-3" type="checkbox" id="" disabled>
+                                                    <!-- <label class="form-check-label w-100" for=""> -->
+                                                    <!-- <div class="font-bold">{{data.taskName}}</div> -->
+                                                    <input type="text" formControlName="taskName"
+                                                        class="taskNameWidthAfterTom" />
+                                                    <!-- <div class="d-none">{{data.taskDecription}}</div> -->
+                                                    <input type="text" formControlName="taskDescription"
+                                                        class="d-none" />
+                                                    <!-- </label> -->
+                                                </div>
+                                                <div class="col-sm-11 d-flex ms-5">
+                                                    @if (upcomingTaskForm.get('upcoming').at(i).get('dueDate').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-calendar-xmark me-2"></i><input
+                                                            type="text" formControlName="dueDate" class="dateWidth">
+                                                    </span>
+                                                    }@else {<input type="text" formControlName="dueDate"
+                                                        class="d-none">}
+                                                    @if (upcomingTaskForm.get('upcoming').at(i).get('listName').value) {
+                                                    <span>
+                                                        <i class="fa-solid fa-square me-2 ms-4"></i><input type="text"
+                                                            formControlName="listName" class="listWidth">
+                                                    </span>
+                                                    }@else{<input type="text" formControlName="listName"
+                                                        class="d-none">}
+                                                </div>
+                                            </div>
+                                            <span><i class="fa-solid fa-chevron-right"></i></span>
+                                        </li>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- <a href="" class="a-new-list border-bottom">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto d-flex">
                                 <input class="form-check-input me-3" type="checkbox" value="" id="flexCheckDefault">
@@ -118,7 +252,8 @@
                             <span><i class="fa-solid fa-chevron-right"></i></span>
                         </li>
                     </a> -->
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

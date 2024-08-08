@@ -9,6 +9,7 @@
             <ul class="list-group btn-bottom p-0">
 
                 <div class="input-taskName">
+                    <!-- <input type="text" placeholder="Hello" formControlName="id" class="form-control"> -->
                     <input type="text" placeholder="New Task" formControlName="taskName" class="form-control">
                 </div>
                 <div class="input-desc mt-4">
@@ -44,8 +45,8 @@
             </ul>
         </div>
         <div class="text-center btn-save-del footer">
-            <button type="button" (click)="taskForm.reset()" class="btn btn-outline-secondary">Delete Task</button>
-                <button type="submit" class="btn btn-outline-warning">Save Changes</button>
+            <button type="button" (click)="deleteTask()" class="btn btn-outline-secondary">Delete Task</button>
+            <button type="submit" class="btn btn-outline-warning">Save Changes</button>
         </div>
     </form>
 </div>

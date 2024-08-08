@@ -23,10 +23,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
     console.log("Hiiiii")
+    // this.route.navigate(['/']);
+    
   }
-
+  
   isUserAuthenticated() {
-
+    
     if(sessionStorage.getItem("isLoggedIn") == "true"){
       return true;
     }
