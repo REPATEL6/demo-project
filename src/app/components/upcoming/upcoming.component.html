@@ -1,7 +1,7 @@
 <div class="boxs">
 
     <div class="container">
-        <h1 class="mb-4"><b>Upcoming</b><span class="badge rounded ms-5 p-2">14</span></h1>
+        <h1 class="mb-4"><b>Upcoming</b><span class="badge rounded ms-5 p-2">{{upcomingTaskLength}}</span></h1>
         <div class="row">
             <h3><b>Today</b></h3>
             <div class="col-sm-12">
@@ -98,19 +98,20 @@
         </div>
         <div class="row mt-4">
             <div class="col-sm-6 p-2">
-                <h3><b>Tomorrow</b></h3>
+                <h4><b>After Today</b></h4>
                 <div class="manual-scroll">
                     <ul class="list-group">
-                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto d-flex">
-                                <div>
+                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded"> -->
+                        <li class="list-group-item d-flex justify-content-between align-items-start"
+                            *ngIf="isTomorrowEmpty">
+                            <div class="ms-2 me-auto d-flex" style="height: 25px;">
+                                <!-- <div>
                                     <i class="fa-solid fa-plus"></i>
-                                </div>
-                                <div class="font-bold ms-2">Add New Task</div>
+                                </div> -->
+                                <div class="font-bold ms-2">No Task Available</div>
                             </div>
                         </li>
-                    </a> -->
+                        <!-- </a> -->
                         <form [formGroup]="upcomingTaskForm" id="form2">
                             <div formArrayName="tomorrow">
                                 <div *ngFor="let control of upcomingTaskForm.get('tomorrow')['controls'];let i = index"
@@ -176,19 +177,20 @@
                 </div>
             </div>
             <div class="col-sm-6 p-2">
-                <h4><b>After Tomorrow</b></h4>
+                <h4><b>Before Today</b></h4>
                 <div class="manual-scroll">
                     <ul class="list-group">
-                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <!-- <a routerLink="addnewtask" skipLocationChange routerLinkActive="active" class="a-new-list border rounded"> -->
+                        <li class="list-group-item d-flex justify-content-between align-items-start"
+                            *ngIf="isUpcomingEmpty">
                             <div class="ms-2 me-auto d-flex">
-                                <div>
+                                <!-- <div>
                                     <i class="fa-solid fa-plus"></i>
-                                </div>
-                                <div class="font-bold ms-2">Add New Task</div>
+                                </div> -->
+                                <div class="font-bold ms-2">No Task Available</div>
                             </div>
                         </li>
-                    </a> -->
+                        <!-- </a> -->
                         <form [formGroup]="upcomingTaskForm" id="form3">
                             <div formArrayName="upcoming">
                                 <div *ngFor="let control of upcomingTaskForm.get('upcoming')['controls'];let i = index"

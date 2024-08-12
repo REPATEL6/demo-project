@@ -197,6 +197,7 @@ export class AddnewtaskComponent implements OnDestroy, OnInit {
                }else{
                   console.log("deletion done! =",this.response.result);
                   this.dataService.onButtonClickAddtoTod.next("hello");
+                  this.dataService.onButtonClickAddtoUpc.next("delete");
                }
             },
             error: (err: any) => {

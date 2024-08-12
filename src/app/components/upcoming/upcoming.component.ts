@@ -29,6 +29,9 @@ export class UpcomingComponent implements OnDestroy, OnInit {
   tomorrow = new Date();
   afterTomorrow = new Date();
   dateArray: Array<Date> = [];
+  isTomorrowEmpty: boolean = true;
+  isUpcomingEmpty: boolean = true;
+  upcomingTaskLength:number = 0;
 
   constructor(public apiService: CallApiService, private activateRoute: ActivatedRoute, private route: Router, private dataService: DataService, private fb: FormBuilder) {
     if (sessionStorage.getItem("id") !== undefined) {
@@ -41,14 +44,10 @@ export class UpcomingComponent implements OnDestroy, OnInit {
     }
     // window.addEventListener('beforeunload', this.handleBeforeUnload);
     this.datepipe = new DatePipe('en-US');
-    this.today.setDate(this.today.getDate())
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1)
-    this.afterTomorrow.setDate(this.afterTomorrow.getDate() + 2)
-
-    console.log("today", this.today);
-    console.log("tom", this.tomorrow);
-    console.log("upcoming", this.afterTomorrow);
-    this.dateArray.push(this.today, this.tomorrow, this.afterTomorrow);
+    // this.today.setDate(this.today.getDate())
+    // this.tomorrow.setDate(this.tomorrow.getDate() + 1)
+    // this.afterTomorrow.setDate(this.afterTomorrow.getDate() + 2)
+    // this.dateArray.push(this.today, this.tomorrow, this.afterTomorrow);
 
     this.dataService.onButtonClickAddtoUpc.subscribe((data: any) => {
       console.log("Helloooooooooooooooooooooooooooooooooo:", data);
@@ -77,11 +76,8 @@ export class UpcomingComponent implements OnDestroy, OnInit {
   // }
 
   btnON() {
-    console.log("btn clicked");
     this.dataService.storeData(undefined);
     this.dataService.onButtonClickTodtoAdd.next(undefined);
-    // this.apiService.setBtnToogle(true);
-    // this.dataService.onButtonClickUpcoming.next(undefined);
   }
 
   ngOnInit(): void {
@@ -92,16 +88,12 @@ export class UpcomingComponent implements OnDestroy, OnInit {
       upcoming: new FormArray([])
     });
 
-    let formattedDate = this.datepipe.transform(this.dateArray.at(1), 'YYYY-MM-dd')
-    console.log(formattedDate);
-
+    // let formattedDate = this.datepipe.transform(this.dateArray.at(1), 'YYYY-MM-dd')
     this.getUpcomingTaskDetails();
   }
 
   ngOnDestroy(): void {
     console.log("upcoming destroy");
-    // window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    // this.route.navigate(['../'], { relativeTo: this.activateRoute })
   }
 
   addTaskFormGroup(): FormGroup {
@@ -133,9 +125,9 @@ export class UpcomingComponent implements OnDestroy, OnInit {
             let todayArray = data.result.at(0);
             let tomArray = data.result.at(1);
             let afterTomArray = data.result.at(2);
-            // console.log("taskArray",todayArray);
-            // console.log("taskArray",tomArray);
-            // console.log("taskArray",afterTomArray);
+
+            this.upcomingTaskLength = todayArray.length + tomArray.length + afterTomArray.length;
+            this.dataService.setUpcomingTaskListLength(this.upcomingTaskLength);
 
             for (let today of todayArray) {
               todayTaskArray.push(this.addTaskFormGroup());
@@ -151,9 +143,8 @@ export class UpcomingComponent implements OnDestroy, OnInit {
               afterTomTaskArray.push(this.addTaskFormGroup());
               afterTomTaskArray.at(count++).patchValue(afterTom);
             }
-            // console.log("today",todayTaskArray.value);
-            // console.log("tom",tomorrowTaskArray.value);
-            // console.log("aftertom",afterTomTaskArray.value);
+            if (tomArray.length > 0) this.isTomorrowEmpty = false;
+            if (afterTomArray.length > 0) this.isUpcomingEmpty = false;
           }
 
         },
@@ -172,14 +163,9 @@ export class UpcomingComponent implements OnDestroy, OnInit {
     let taskArrayTod = this.upcomingTaskForm.get('today') as FormArray;
     let taskArrayTom = this.upcomingTaskForm.get('tomorrow') as FormArray;
     let taskArrayAfterTom = this.upcomingTaskForm.get('upcoming') as FormArray;
-    console.log("ArrayLength", taskArrayTod.length);
-    // taskArrays.controls.forEach((element,idx) => {
-
-    // });
 
     for (let i = taskArrayTod.length - 1; i >= 0; i--) {
       taskArrayTod.removeAt(i);
-      // console.log("i:",i);
 
     }
     for (let i = taskArrayTom.length - 1; i >= 0; i--) {
@@ -191,23 +177,10 @@ export class UpcomingComponent implements OnDestroy, OnInit {
   }
 
   sentData(str: String, idx: number) {
-    // console.log("idx", idx);
-    // console.log("abc", this.upcomingTaskForm.get('tasks').at(idx).get('listName').value);
-    // if (this.upcomingTaskForm.get('tasks').at(idx).get('listName').value == '-Select-') {
-    //   console.log("-select");
-    //   this.upcomingTaskForm.get('tasks').at(idx).get('listName').value = '';
-    // }
-    // console.log("abc", this.upcomingTaskForm.get('tasks').at(idx).get('listName').value);
-    // const data = this.upcomingTaskForm.get('tasks').at(idx);
-    // console.log("clicked data", data.value);
-    // this.dataService.storeData(data.value);
-    // this.dataService.onButtonClickTodtoAdd.next(data.value);
-    let val:String = str == Days.Today ? (str == Days.Tomorrow ? Days.Upcoming : Days.Tomorrow) : Days.Today;
-    console.log("error: check: " , this.upcomingTaskForm.get(val).at(idx).get('listName').value);
-    
-    // if(this.upcomingTaskForm.get(val).at(idx).get('listName').value == '') {
-    //   this.upcomingTaskForm.get(val).at(idx).get('listName').value = '';
-    // }
+    let val: String = str == Days.Today ? Days.Today : (str == Days.Tomorrow ? Days.Tomorrow : Days.Upcoming);
+    console.log('val:', val);
+
+    console.log("error: check: ", this.upcomingTaskForm.get(val).at(idx));
     const data = this.upcomingTaskForm.get(val).at(idx);
     console.log("clicked data", data.value);
     this.dataService.storeData(data.value);

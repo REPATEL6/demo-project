@@ -18,6 +18,7 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
   userid: number | undefined;
   response: any;
   taskForm: any;
+  todayTaskLength: number = 0;
 
   @ViewChild(AddnewtaskComponent, { static: true }) addnewComp?: AddnewtaskComponent;
 
@@ -90,6 +91,8 @@ export class TodayComponent implements OnInit, AfterViewInit, OnChanges, OnDestr
           // taskFORM.reset();
           let count = 0;
           let taskArray = this.taskForm.get('tasks') as FormArray;
+          this.todayTaskLength = data.result.length;
+          this.dataService.setTodayTaskListLength(this.todayTaskLength);
           for (let item of data.result) {
             taskArray.push(this.addTaskFormGroup());
             taskArray.at(count++).patchValue(item);

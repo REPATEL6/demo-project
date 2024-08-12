@@ -18,6 +18,8 @@ export class DataService {
   
   data:any;
   idx?:number;
+  upcomingTaskListLength : number = 0;
+  todayTaskListLength : number = 0;
 
   storeData(val :any) {
     this.data = val;
@@ -25,6 +27,22 @@ export class DataService {
 
    getStoredData() {
     return this.data;
+  }
+
+  setUpcomingTaskListLength(val : number) {
+    this.upcomingTaskListLength = val;
+  }
+
+  getUpcomingTaskListLength() {
+    return this.upcomingTaskListLength;
+  }
+
+  setTodayTaskListLength(val : number) {
+    this.todayTaskListLength = val;
+  }
+
+  getTodayTaskListLength() {
+    return this.todayTaskListLength;
   }
 
 }
